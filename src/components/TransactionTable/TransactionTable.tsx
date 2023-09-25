@@ -4,7 +4,10 @@ import ReactPaginate from 'react-paginate';
 import { Form, useLoaderData } from 'react-router-dom';
 import { instanse } from '../../api/axios.api';
 import { formatToUSD } from '../../helpers/currency.helper';
-import { convertToDate } from '../../helpers/date.helper';
+import {
+  convertToDateLong,
+  convertToDateShort,
+} from '../../helpers/date.helper';
 import { IResponseTransactionLoader, ITransaction } from '../../types/types';
 
 interface ITranactionTable {
@@ -78,7 +81,16 @@ const TransactionTable: FC<ITranactionTable> = ({ limit = 3 }) => {
                     : `- ${formatToUSD.format(transaction.amount)}`}
                 </td>
                 <td>{transaction.category?.title || 'Other'}</td>
-                <td>{convertToDate(transaction.createdAt)}</td>
+                {/* <td>{convertToDate(transaction.createdAt)}</td> */}
+                <td>
+                  <span className="xl:hidden">
+                    {convertToDateShort(transaction.createdAt)}
+                  </span>
+                  <span className="hidden xl:inline">
+                    {convertToDateLong(transaction.createdAt)}
+                  </span>
+                </td>
+
                 <td>
                   <Form method="delete" action="/transactions">
                     <input type="hidden" name="id" value={transaction.id} />
