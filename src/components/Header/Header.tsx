@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { FaBtc, FaSignOutAlt } from 'react-icons/fa';
+import { FaGoogleWallet, FaSignOutAlt } from 'react-icons/fa';
 import { useAuth } from '../../hooks/useAuth';
 import { useAppDispatch } from '../../store/hooks';
 import { logout } from '../../store/user/userSlice';
@@ -22,7 +22,7 @@ const Header: FC = () => {
   return (
     <header className="flex items-center bg-slate-800 p-4 shadow-sm backdrop-blur-sm">
       <Link to="/">
-        <FaBtc size={20} />
+        <FaGoogleWallet size={20} />
       </Link>
       {isAuth && (
         <nav className="ml-auto mr-10">
