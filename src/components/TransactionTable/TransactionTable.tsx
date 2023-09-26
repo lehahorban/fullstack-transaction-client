@@ -42,9 +42,9 @@ const TransactionTable: FC<ITranactionTable> = ({ limit = 3 }) => {
       <ReactPaginate
         className="mt-4 flex items-center justify-end gap-3"
         activeClassName="bg-blue-600 rounded-sm"
-        pageLinkClassName="text-white text-xs py-1 px-2 rounded-sm"
-        previousClassName="text-white text-xs py-1 px-2 rounded-sm bg-slate-800"
-        nextClassName="text-white text-xs py-1 px-2 rounded-sm bg-slate-800"
+        pageLinkClassName="text-white text-xs py-1 px-3 text-center rounded-sm"
+        previousClassName="text-white text-xs py-1 px-3 text-center rounded-sm bg-slate-800"
+        nextClassName="text-white text-xs py-1 px-3 text-center rounded-sm bg-slate-800"
         disabledClassName="text-white/50 cursor-not-allowed"
         disabledLinkClassName="text-slate-600 cursor-not-allowed"
         pageCount={totalPages}
@@ -52,37 +52,39 @@ const TransactionTable: FC<ITranactionTable> = ({ limit = 3 }) => {
         marginPagesDisplayed={2}
         onPageChange={handlePagaChange}
       />
-      <div className="mt-4 rounded-md bg-slate-800 px-4 py-3">
+
+      <div className="mt-4 overflow-x-auto rounded-md bg-slate-800 px-4 py-3">
         <table className="w-full">
           <thead>
             <tr>
-              <td className="font-bold">№</td>
-              <td className="font-bold">Title</td>
-              <td className="font-bold">Amount</td>
-              <td className="font-bold">Category</td>
-              <td className="font-bold">Date</td>
-              <td className="text-right">Action</td>
+              <th className="px-3 text-left font-bold">№</th>
+              <th className="px-3 text-left font-bold">Title</th>
+              <th className="px-3 text-left font-bold">Amount</th>
+              <th className="px-3 text-left font-bold">Category</th>
+              <th className="px-3 text-left font-bold">Date</th>
+              <th className="px-3 text-left font-bold">Action</th>
             </tr>
           </thead>
           <tbody>
             {data?.map((transaction, ind) => (
               <tr key={transaction.id}>
-                <td>{ind + 1}</td>
-                <td>{transaction.title}</td>
+                <td className="px-3 text-left">{ind + 1}</td>
+                <td className="px-3 text-left">{transaction.title}</td>
                 <td
-                  className={
+                  className={`px-3 text-left ${
                     transaction.type === 'income'
                       ? 'text-green-500'
                       : 'text-red-600'
-                  }
+                  }`}
                 >
                   {transaction.type === 'income'
                     ? `+ ${formatToUSD.format(transaction.amount)}`
                     : `- ${formatToUSD.format(transaction.amount)}`}
                 </td>
-                <td>{transaction.category?.title || 'Other'}</td>
-                {/* <td>{convertToDate(transaction.createdAt)}</td> */}
-                <td>
+                <td className="px-3 text-left">
+                  {transaction.category?.title || 'Other'}
+                </td>
+                <td className="px-3 text-left">
                   <span className="xl:hidden">
                     {convertToDateShort(transaction.createdAt)}
                   </span>
@@ -90,11 +92,10 @@ const TransactionTable: FC<ITranactionTable> = ({ limit = 3 }) => {
                     {convertToDateLong(transaction.createdAt)}
                   </span>
                 </td>
-
-                <td>
+                <td className="px-3 text-left">
                   <Form method="delete" action="/transactions">
                     <input type="hidden" name="id" value={transaction.id} />
-                    <button className="btn hover:btn-red ml-auto">
+                    <button className="btn hover:btn-red">
                       <FaTrash />
                     </button>
                   </Form>

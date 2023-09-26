@@ -64,7 +64,7 @@ const Transactions: FC = () => {
         <div className="flex h-full flex-col items-center justify-center rounded-md bg-slate-800 p-3">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <p className="text-center text-sm font-bold uppercase">
+              <p className="text-center text-xs font-bold uppercase md:text-sm">
                 Total Income:
               </p>
               <p className="mt-2 rounded-sm bg-green-600 p-1 text-center">
@@ -72,7 +72,7 @@ const Transactions: FC = () => {
               </p>
             </div>
             <div>
-              <p className="text-center text-sm font-bold uppercase">
+              <p className="text-center text-xs font-bold uppercase md:text-sm">
                 Total Exspense:
               </p>
               <p className="mt-2 rounded-sm bg-red-500 p-1 text-center">

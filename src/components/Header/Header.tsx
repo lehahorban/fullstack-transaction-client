@@ -20,59 +20,61 @@ const Header: FC = () => {
   };
 
   return (
-    <header className="flex items-center bg-slate-800 p-4 shadow-sm backdrop-blur-sm">
-      <Link to="/">
-        <FaGoogleWallet size={20} />
-      </Link>
-      {isAuth && (
-        <nav className="ml-auto mr-10">
-          <ul className="flex items-center gap-5">
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? 'text-white' : 'text-white/50'
-                }
-                to={'/'}
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? 'text-white' : 'text-white/50'
-                }
-                to={'/transactions'}
-              >
-                Transactions
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? 'text-white' : 'text-white/50'
-                }
-                to={'/categories'}
-              >
-                Categories
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
-      )}
-      {isAuth ? (
-        <button onClick={logoutHandler} className="btn btn-red">
-          <span>Log out</span>
-          <FaSignOutAlt />
-        </button>
-      ) : (
-        <Link
-          className="ml-auto py-2 text-white/50 hover:text-white"
-          to={'/auth'}
-        >
-          Log in / Sign in
+    <header className=" bg-slate-800  shadow-sm backdrop-blur-sm">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-end gap-3 p-4">
+        <Link to="/">
+          <FaGoogleWallet size={20} />
         </Link>
-      )}
+        {isAuth && (
+          <nav className="ml-auto md:mr-10">
+            <ul className="flex items-center gap-5">
+              <li>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? 'text-white' : 'text-white/50'
+                  }
+                  to={'/'}
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? 'text-white' : 'text-white/50'
+                  }
+                  to={'/transactions'}
+                >
+                  Transactions
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? 'text-white' : 'text-white/50'
+                  }
+                  to={'/categories'}
+                >
+                  Categories
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+        )}
+        {isAuth ? (
+          <button onClick={logoutHandler} className="btn btn-red">
+            <span>Log out</span>
+            <FaSignOutAlt />
+          </button>
+        ) : (
+          <Link
+            className="ml-auto py-2 text-white/50 hover:text-white"
+            to={'/auth'}
+          >
+            Log in / Sign in
+          </Link>
+        )}
+      </div>
     </header>
   );
 };
