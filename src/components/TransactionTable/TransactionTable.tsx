@@ -57,21 +57,33 @@ const TransactionTable: FC<ITranactionTable> = ({ limit = 3 }) => {
         <table className="w-full">
           <thead>
             <tr>
-              <th className="px-3 text-left font-bold">№</th>
-              <th className="px-3 text-left font-bold">Title</th>
-              <th className="px-3 text-left font-bold">Amount</th>
-              <th className="px-3 text-left font-bold">Category</th>
-              <th className="px-3 text-left font-bold">Date</th>
-              <th className="px-3 text-left font-bold">Action</th>
+              <th className="whitespace-nowrap px-3 text-left font-bold">№</th>
+              <th className="whitespace-nowrap px-3 text-left font-bold">
+                Title
+              </th>
+              <th className="whitespace-nowrap px-3 text-left font-bold">
+                Amount
+              </th>
+              <th className="whitespace-nowrap px-3 text-left font-bold">
+                Category
+              </th>
+              <th className="whitespace-nowrap px-3 text-left font-bold">
+                Date
+              </th>
+              <th className="whitespace-nowrap px-3 text-left font-bold">
+                Action
+              </th>
             </tr>
           </thead>
           <tbody>
             {data?.map((transaction, ind) => (
               <tr key={transaction.id}>
-                <td className="px-3 text-left">{ind + 1}</td>
-                <td className="px-3 text-left">{transaction.title}</td>
+                <td className="whitespace-nowrap px-3 text-left">{ind + 1}</td>
+                <td className="whitespace-nowrap px-3 text-left">
+                  {transaction.title}
+                </td>
                 <td
-                  className={`px-3 text-left ${
+                  className={`whitespace-nowrap px-3 text-left ${
                     transaction.type === 'income'
                       ? 'text-green-500'
                       : 'text-red-600'
@@ -81,10 +93,10 @@ const TransactionTable: FC<ITranactionTable> = ({ limit = 3 }) => {
                     ? `+ ${formatToUSD.format(transaction.amount)}`
                     : `- ${formatToUSD.format(transaction.amount)}`}
                 </td>
-                <td className="px-3 text-left">
+                <td className="whitespace-nowrap px-3 text-left">
                   {transaction.category?.title || 'Other'}
                 </td>
-                <td className="px-3 text-left">
+                <td className="whitespace-nowrap px-3 text-left">
                   <span className="xl:hidden">
                     {convertToDateShort(transaction.createdAt)}
                   </span>
@@ -92,7 +104,7 @@ const TransactionTable: FC<ITranactionTable> = ({ limit = 3 }) => {
                     {convertToDateLong(transaction.createdAt)}
                   </span>
                 </td>
-                <td className="px-3 text-left">
+                <td className="whitespace-nowrap px-3 text-left">
                   <Form method="delete" action="/transactions">
                     <input type="hidden" name="id" value={transaction.id} />
                     <button className="btn hover:btn-red">
