@@ -8,6 +8,7 @@ interface ProtectedProps {
 
 export const ProtectedRoute: FC<ProtectedProps> = ({ children }) => {
   const isAuth = useAuth();
+
   return (
     <>
       {isAuth ? (
