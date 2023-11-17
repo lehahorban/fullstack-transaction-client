@@ -57,6 +57,7 @@ const TransactionForm: FC = () => {
         </label>
 
         <button
+          type="button"
           onClick={() => setVisibleModal(true)}
           className="flex max-w-fit items-center gap-2 text-white/50 hover:text-white"
         >
