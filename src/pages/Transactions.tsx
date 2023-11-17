@@ -74,7 +74,7 @@ const Transactions: FC = () => {
   return (
     <>
       <div className="mt-4 grid grid-cols-1 items-start gap-4 md:grid-cols-3">
-        <div className="col-span-2 grid">
+        <div className="grid h-full md:col-span-2">
           <TransactionForm />
         </div>
         <div className="flex h-full flex-col items-center justify-center rounded-md bg-slate-800 p-3">
