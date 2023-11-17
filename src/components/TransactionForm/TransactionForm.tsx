@@ -7,6 +7,7 @@ import CategoryModal from '../CategoryModal/CategoryModal';
 const TransactionForm: FC = () => {
   const { categories } = useLoaderData() as IResponseTransactionLoader;
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
+  console.log(categories);
   return (
     <div className="rounded-md bg-slate-800 p-4">
       <Form className="grid gap-2" method="post" action="/transactions">
@@ -72,6 +73,7 @@ const TransactionForm: FC = () => {
               name="type"
               value={'income'}
               className="form-radio text-blue-600"
+              required
             />
             <span>Income</span>
           </label>
@@ -86,7 +88,12 @@ const TransactionForm: FC = () => {
           </label>
         </div>
 
-        <button className="btn btn-green mt-2 max-w-fit">Submit</button>
+        <button
+          disabled={categories.length === 0 ? true : false}
+          className="btn btn-green mt-2 max-w-fit"
+        >
+          Submit
+        </button>
       </Form>
       {visibleModal && (
         <CategoryModal type="post" setVisibleModal={setVisibleModal} />

@@ -28,6 +28,7 @@ export const transactionLoader = async () => {
 };
 
 export const transactionAction = async ({ request }: any) => {
+  let isDeleting = false;
   switch (request.method) {
     case 'POST': {
       const formData = await request.formData();
@@ -42,15 +43,26 @@ export const transactionAction = async ({ request }: any) => {
       return null;
     }
     case 'DELETE': {
-      const formData = await request.formData();
-      const transactionId = formData.get('id');
-      await instanse.delete(`/transactions/transaction/${transactionId}`);
-      toast.success('Transaction deleted');
-      return null;
+      if (isDeleting) {
+        return null; // Якщо вже видаляється, не виконуємо видалення
+      }
+
+      isDeleting = true; // Встановлюємо прапорець, що видаляється
+      try {
+        const formData = await request.formData();
+        const transactionId = formData.get('id');
+        await instanse.delete(`/transactions/transaction/${transactionId}`);
+        toast.success('Transaction deleted');
+        return null;
+      } catch (error) {
+        console.error('Error deleting transaction');
+        return null;
+      } finally {
+        isDeleting = false; // Після видалення скидаємо прапорець
+      }
     }
   }
 };
-
 const Transactions: FC = () => {
   const { totalIncome, totalExpense } =
     useLoaderData() as IResponseTransactionLoader;
