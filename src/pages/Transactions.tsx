@@ -13,41 +13,46 @@ import {
 } from '../types/types';
 
 export const transactionLoader = async () => {
-  const categories = await instanse.get<ICategory[]>('/categories');
-  const transactions = await instanse.get<ITransaction[]>('/transactions');
-  const totalIncome = await instanse.get<number>('/transactions/income/find');
-  const totalExpense = await instanse.get<number>('/transactions/expense/find');
+  try {
+    const categories = await instanse.get<ICategory[]>('/categories');
+    const transactions = await instanse.get<ITransaction[]>('/transactions');
+    const totalIncome = await instanse.get<number>('/transactions/income/find');
+    const totalExpense = await instanse.get<number>(
+      '/transactions/expense/find'
+    );
 
-  const data = {
-    categories: categories.data,
-    transactions: transactions.data,
-    totalIncome: totalIncome.data,
-    totalExpense: totalExpense.data,
-  };
-  return data;
+    const data = {
+      categories: categories.data,
+      transactions: transactions.data,
+      totalIncome: totalIncome.data,
+      totalExpense: totalExpense.data,
+    };
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const transactionAction = async ({ request }: any) => {
-  let isDeleting = false;
   switch (request.method) {
     case 'POST': {
-      const formData = await request.formData();
-      const newTransaction = {
-        title: formData.get('title'),
-        amount: +formData.get('amount'),
-        category: formData.get('category'),
-        type: formData.get('type'),
-      };
-      await instanse.post('/transactions', newTransaction);
-      toast.success('Transaction added');
-      return null;
+      try {
+        const formData = await request.formData();
+        const newTransaction = {
+          title: formData.get('title'),
+          amount: +formData.get('amount'),
+          category: formData.get('category'),
+          type: formData.get('type'),
+        };
+        await instanse.post('/transactions', newTransaction);
+        toast.success('Transaction added');
+        return null;
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
     }
     case 'DELETE': {
-      if (isDeleting) {
-        return null; // Якщо вже видаляється, не виконуємо видалення
-      }
-
-      isDeleting = true; // Встановлюємо прапорець, що видаляється
       try {
         const formData = await request.formData();
         const transactionId = formData.get('id');
@@ -56,13 +61,11 @@ export const transactionAction = async ({ request }: any) => {
         return null;
       } catch (error) {
         console.error('Error deleting transaction');
-        return null;
-      } finally {
-        isDeleting = false; // Після видалення скидаємо прапорець
       }
     }
   }
 };
+
 const Transactions: FC = () => {
   const { totalIncome, totalExpense } =
     useLoaderData() as IResponseTransactionLoader;

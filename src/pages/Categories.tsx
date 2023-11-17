@@ -9,28 +9,44 @@ import { ICategory } from '../types/types';
 export const categoriesAction = async ({ request }: any) => {
   switch (request.method) {
     case 'POST': {
-      const formData = await request.formData();
-      const title = {
-        title: formData.get('title'),
-      };
-      await instanse.post('/categories', title);
-      return null;
+      try {
+        const formData = await request.formData();
+        const title = {
+          title: formData.get('title'),
+        };
+        await instanse.post('/categories', title);
+        return null;
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
     }
-    case 'PATCH': {
-      const formData = await request.formData();
-      const category = {
-        id: formData.get('id'),
-        title: formData.get('title'),
-      };
 
-      await instanse.patch(`/categories/category/${category.id}`, category);
-      return null;
+    case 'PATCH': {
+      try {
+        const formData = await request.formData();
+        const category = {
+          id: formData.get('id'),
+          title: formData.get('title'),
+        };
+
+        await instanse.patch(`/categories/category/${category.id}`, category);
+        return null;
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
     }
     case 'DELETE': {
-      const formData = await request.formData();
-      const categoryId = formData.get('id');
-      await instanse.delete(`/categories/category/${categoryId}`);
-      return null;
+      try {
+        const formData = await request.formData();
+        const categoryId = formData.get('id');
+        await instanse.delete(`/categories/category/${categoryId}`);
+        return null;
+      } catch (error) {
+        console.error('Error deleting transaction');
+        return null;
+      }
     }
   }
 };
