@@ -61,6 +61,7 @@ export const transactionAction = async ({ request }: any) => {
         return null;
       } catch (error) {
         console.error('Error deleting transaction');
+        return null;
       }
     }
   }
